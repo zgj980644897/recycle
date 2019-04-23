@@ -64,4 +64,15 @@ public class TbPhone {
     this.phoneMd5Pic = phoneMd5Pic;
   }
 
+  @Override
+  public String toString() {
+    return "TbPhone{" +
+            "phoneId=" + phoneId +
+            ", phoneName='" + phoneName + '\'' +
+            ", phoneParent=" + phoneParent +
+            ", phonePrice=" + phonePrice +
+            ", phonePic='" + phonePic + '\'' +
+            ", phoneMd5Pic='" + phoneMd5Pic + '\'' +
+            '}';
+  }
 }

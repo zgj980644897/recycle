@@ -1,5 +1,6 @@
 package com.qianfeng.phone.controller;
 
+import com.qianfeng.phone.po.TbPhone;
 import com.qianfeng.phone.service.IBrandService;
 import com.qianfeng.phone.vo.BrandVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,17 @@ import java.util.List;
 public class IndexController {
     @Autowired
     private IBrandService brandServiceImpl;
-//    @ResponseBody
-//    @RequestMapping("/brand")
+    @ResponseBody
+    @RequestMapping("/brand")
     public List<BrandVO> queryBrand(){
         List<BrandVO> list = brandServiceImpl.queryBrand();
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("/callphone")
+    public List<TbPhone> queryPhone(){
+        List<TbPhone> list=brandServiceImpl.queryPhone();
+        System.out.println(list);
         return list;
     }
 }

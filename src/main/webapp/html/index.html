@@ -25,6 +25,8 @@
     <script src="../js/new_js/lrtk.js" type="text/javascript"></script>
     <script src="../js/new_js/menu.js" type="text/javascript"></script>
     <script src="../js/new_js/index.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <link rel="stylesheet" type="text/css" href="../css/alert_zhe.css"/>
@@ -151,8 +153,8 @@
                 <div class="brand_main">
                     <div class="brand_hot" id="brandId" >
 
-                        <a href="ershouhtc.html" v-for="brand in phoneList">{{brand.phoneName}}</a>
-                        <em>|</em>
+                        <a href="ershouhtc.html" v-for="brand in phoneList">{{brand.phoneName}} <em>|</em></a>
+
 
                         <a href="ershoumeizu.html">魅族</a>
                     </div>
@@ -167,21 +169,23 @@
                 <div class="search_title"><h2 class="list-item">手机回收</h2>&nbsp;&nbsp;&nbsp;&nbsp;<em></em>搜索到<em>
                     1852 </em>个结果
                 </div>
-                <dl class="pic_list">
-                    <dd>
-                        <div class="pic_list_box">
-                            <div class="pic_list_img"><a href="info.html" title="iphone 7回收价格评估"><img
-                                    src="http://img.ihuigo.com/goods/739b3910f020832305a94a6a96eec952.jpg" width="180"
-                                    height="135" alt="iphone 7闲置回收价格评估"/></a></div>
-                            <p class="name">iphone 7</p>
+
+                <dl class="pic_list" id="phoneId">
+                    <dd v-for="phone in listPhone">
+                        <div class="pic_list_box" >
+                            <div class="pic_list_img"><a :href="'http://localhost:8080/recycle/html/info.html?phoneId='+phone.phoneId" :title="phone.phoneName+' 回收价格评估'"><img
+                                    :src="'http://localhost/images/'+phone.phonePic" width="180"
+                                    height="135" :alt="phone.phoneName+'闲置回收价格评估'"/></a></div>
+                            <p class="name">{{phone.phoneName}}</p>
                             <!--<p class="price">回收价：<em>￥3080</em></p>-->
-                            <p class="pinggu"><a href="goods/info/21025.html" title="在线评估iphone 7回收价格"><!--去评估--></a>
+                            <p class="pinggu"><a href="goods/info/21025.html" :title="'在线评估'+phone.phoneName+'回收价格'"><!--去评估--></a>
                             </p>
                             <div class="hot"><img src="../images/hot.png"/></div>
                         </div>
                     </dd>
                     <div class="clear"></div>
                 </dl>
+
                 <div class="clear"></div>
                 <div class="pageStr">
                     <div class="ihuigo_page"><span class="cur_link">1</span><span><a
@@ -331,8 +335,7 @@
 <script type="text/javascript">
     DD_belatedPNG.fix('img,.banner ul, li, dl, dt, dd, span, em, div, i, samp, a, b, .kuang');
 </script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script type="text/javascript">
     new Vue({
         el:"#brandId",
@@ -343,18 +346,31 @@
         mounted() {
             //访问后台获取数据
             //mounted处于生命周期定义数据之后，重组html标签之前
+
             axios.get("http://localhost:8080/recycle/phone/brand")
             //此处this代表是vue对象
-                    .then(response =>{ this.phoneList = response.data;})
+                   .then(response =>{ this.phoneList = response.data;})
 
-            // axios.get("http://localhost:8080/springmvc/book/page/1")
-            //     .then(function (response) {
+           //axios.get("http://localhost:8080/springmvc/book/page/1")
+             //   .then(function (response) {
             //    此处的this代表axios对象
-            //     this.bookList = response.data;
-            // })
+              //  this.bookList = response.data;
+           //  })
+        }
+    });
+    new Vue({
+        el:"#phoneId",
+        data:{
+            listPhone:[{phoneName:"iphone 7",phonePic:"iphone7.jpg"},{phoneName:"iphone 8",phonePic:"iphone7.jpg"}]
+        },
+        mounted(){
+            axios.get("http://localhost:8080/recycle/phone/callphone")
+            //此处this代表是vue对象
+                .then(response =>{this.listPhone = response.data;})
         }
     });
 </script>
+
 <![endif]-->
 </body>
 </html>

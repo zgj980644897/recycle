@@ -20,8 +20,10 @@ function	pj_click(obj,pj_id){
 
 //属性点击事件
 function	property_click(obj,suffix,property_id){
-	var name	=$(obj).attr('name');
-	$("li[name='"+name+"']").attr('class','');
+
+	var name	=$(obj).attr('id');
+
+	$("li[id='"+name+"']").attr('class','');
 	$(obj).attr('class','selected');
 	$("#property_"+suffix).val(property_id);
 	//自动下一步

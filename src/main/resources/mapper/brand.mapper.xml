@@ -7,7 +7,18 @@
         <id property="phoneId" column="phone_id"/>
         <result property="phoneName" column="phone_name"/>
     </resultMap>
+    <resultMap id="phoneResultMap" type="com.qianfeng.phone.po.TbPhone">
+        <id property="phoneId" column="phone_id"/>
+        <result property="phoneName" column="phone_name"/>
+        <result property="phoneParent" column="phone_parent"/>
+        <result property="phonePrice" column="phone_price"/>
+        <result property="phonePic" column="phone_pic"/>
+    </resultMap>
     <select id="queryBrand" resultMap="brandResultMap">
         select phone_id,phone_name from tb_phone where phone_parent = 0
+    </select>
+
+    <select id="queryPhone" resultMap="phoneResultMap">
+        select phone_id,phone_name,phone_pic from tb_phone where phone_parent>0
     </select>
 </mapper>
