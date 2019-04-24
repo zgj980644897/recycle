@@ -173,7 +173,7 @@
                 <dl class="pic_list" id="phoneId">
                     <dd v-for="phone in listPhone">
                         <div class="pic_list_box" >
-                            <div class="pic_list_img"><a :href="'http://localhost:8080/recycle/html/info.html?phoneId='+phone.phoneId" :title="phone.phoneName+' 回收价格评估'"><img
+                            <div class="pic_list_img"><a :href="'http://localhost:8080/recycle/html/info.html?phoneId='+phone.phoneId+'&phonePrice='+phone.phonePrice" :title="phone.phoneName+' 回收价格评估'"><img
                                     :src="'http://localhost/images/'+phone.phonePic" width="180"
                                     height="135" :alt="phone.phoneName+'闲置回收价格评估'"/></a></div>
                             <p class="name">{{phone.phoneName}}</p>

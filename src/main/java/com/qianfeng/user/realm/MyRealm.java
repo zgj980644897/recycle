@@ -11,6 +11,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
 public class MyRealm extends AuthorizingRealm {
 
     @Autowired
-    private IUserService userService;
+    private IUserService userServiceImpl;
 
     /**
      * 查询权限和角色信息
@@ -55,7 +56,7 @@ public class MyRealm extends AuthorizingRealm {
         userVO.setUsername(username);
 
 
-        TbUser login = userService.login(userVO);
+        TbUser login = userServiceImpl.login(userVO);
 
         //返回值，告诉shiro我们登录成功。
         //参数1和参数2：用户和密码

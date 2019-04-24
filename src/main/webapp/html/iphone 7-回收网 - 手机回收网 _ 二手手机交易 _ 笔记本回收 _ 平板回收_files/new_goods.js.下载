@@ -20,88 +20,52 @@ function	pj_click(obj,pj_id){
 
 //属性点击事件
 function	property_click(obj,suffix,property_id){
-
-	var name	=$(obj).attr('id');
-
-	$("li[id='"+name+"']").attr('class','');
+	var name	=	$(obj).attr('name');
+	$("li[name='"+name+"']").attr('class','');
 	$(obj).attr('class','selected');
+
 	$("#property_"+suffix).val(property_id);
 	//自动下一步
 	auto_go_next(obj);
 }
 //描叙点击事件
 function	item_click(obj,suffix){
-    var name			=	$(obj).attr('name');
-    var current_class	=	$(obj).attr('class');
+    	var name			=	$(obj).attr('name');
+    	var current_class	=	$(obj).attr('class');
     if(current_class	==	'selected'){
-        $(obj).attr('class','');
-        $("#desc_id_"+suffix).val(0);
+        		$(obj).attr('class','');
+        		$("#desc_id_"+suffix).val(0);
     }else {
         $(obj).attr('class','selected');
         $("#desc_id_"+suffix).val(suffix);
-	}
-    var n	=	$("#property_step2").find(".selected").length;
-    console.log("类的数量："+n);
-    if(n	==	0){
-        $("#btn_step2_next").html('都没问题，跳过');
-    }else{
-        $("#btn_step2_next").text('下一步');
     }
-/*	var default_id	=	arguments[3] ? arguments[3] : desc_id;
-	if(default_id	!=	desc_id){		//可多选时
-		var name			=	$(obj).attr('name');
-		var current_class	=	$(obj).attr('class');
-		if(current_class	==	'selected'){
-			$(obj).attr('class','');
-			$("#desc_id_"+suffix).val(default_id);
-			btn_step2_next_html();
-			return;
-		}
-	}
 
-	var name	=	$(obj).attr('name');
-	$("li[name='"+name+"']").attr('class','');
-	$(obj).attr('class','selected');
-	//赋值描叙id
-	$("#desc_id_"+suffix).val(desc_id);
-	//子类id
-	var	child_id	=	'pingu_mx_'+suffix+'_child';
-	//删除现有子类内容
-	$("#"+child_id).remove();
 
-	if($("#pingu_mx_"+desc_id).length!=0){
-		//加载子类描叙
-		var html	=	"";
-		html		+=	'<div id="'+child_id+'">';
-		html		+=	'<dd class="" id="pingu_mx_'+desc_id+'">';
-		html		+=	'<input type="hidden" name="desc_id[]" id="desc_id_'+desc_id+'" value="0" />';
-		html		+=	$("#pingu_mx_"+desc_id).html();
-		html		+=	'</dd>';
-		html		+=	'</div>';
 	}
-	$("#pingu_mx_"+suffix).after(html);
-	//自动下一步
-	auto_go_next(obj);
-	btn_step2_next_html();*/
-}
 
 function auto_go_next(obj){
-	var p_div_id	=	$(obj).parent().parent().parent().parent().attr('id');
-	if(p_div_id		==	'property_step1'){
-		var n		=	true;
-		$("#"+p_div_id+" input").each(function(){if($(this).val()==0){n=false;return false;}});
-		if(n)	step1_next();
-	}
+    var p_div_id	=	$(obj).parent().parent().parent().parent().attr('id');
+    if(p_div_id		==	'property_step1'){
+        var n		=	true;
+        $("#"+p_div_id+" input").each(function(){if($(this).val()==0){n=false;return false;}});
+        if(n)	step1_next();
+    }
 }
 
 function btn_step2_next_html(){
-	var n	=	$("#property_step2").find(".selected").length;
-	if(n	==	0){
-		$("#btn_step2_next").html('都没问题，跳过');
-	}else{
-		$("#btn_step2_next").html('下一步');
-	}
+    var n	=	$("#property_step2").find(".selected").length;
+    if(n	==	0){
+        $("#btn_step2_next").html('都没问题，跳过');
+    }else{
+        $("#btn_step2_next").html('下一步');
+    }
 }
+
+
+
+
+
+
 
 //查看价格
 function new_show_price(url,act,func,elem_id,ifhuanxin){

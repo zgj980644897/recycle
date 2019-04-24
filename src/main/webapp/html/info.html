@@ -141,7 +141,7 @@
                     <ul >
                         <input type="hidden" name="desc_pid[]" value="944"/>
                         <input type="hidden" name="desc_id[]" id="desc_id_944" value="945"/>
-                        <li v-for="csec in sec.pCtypeList" onClick="item_click(this,'944','946','945')" name="mx_child_944">
+                        <li v-for="csec in sec.pCtypeList" class=""  onClick="item_click(this,'944','946','945')" name="mx_child_944">
                             <input  type="hidden" :value="csec.cPrice"/>
                             <div class="pro_div"><span class="property_value"><i>{{csec.cName}}</i><ins>{{csec.cDesc}}</ins></span>
                                 <span class="gou"></span></div>
@@ -156,16 +156,20 @@
             </div>
         </div>
         <!--第二步-->
+        <script type="text/javascript">
+
+        </script>
         <!--第三步-->
         <div id="property_step3" class="hide">
             <dl id="thirdly">
                 <dd class="" id="pingu_mx_659" v-for="(thir,inds) in thirdlyList">
                     <input type="hidden" name="desc_pid[]" value="659"/>
-                    <input type="hidden" name="desc_id[]" id="desc_id_659" value="0"/>
+                    <input type="hidden" name="desc_id[]" id="desc_id_659" value="1"/>
+                    <input type="hidden"  name="property[]" :id="'proper_thir'+inds" value="0"/>
                     <div class="property_title"><h3>{{thir.pName}}</h3></div>
                     <ul>
-                        <li v-for="cthir in thir.pCtypeList" class="" onClick="price_3(this,'659','660')" name="mx_child_659">
-                            <input  type="hidden" :name="inds" :value="cthir.cPrice"/>
+                        <li v-for="cthir in thir.pCtypeList" :id="'thir'+inds" class="" onClick="price_3(this,'659','660')" name="mx_child_659">
+                            <input  type="hidden" :name="'thir'+inds" :value="cthir.cPrice"/>
                             <div class="pro_div"><span class="property_value"><i>{{cthir.cName}}</i><ins>{{cthir.cDesc}}</ins></span><span
                                     class="gou"></span></div>
                         </li>
@@ -176,7 +180,7 @@
             <div id="step3_nav" class="property_nav">
                 <div id="btn_step3_back" class="btn_back">< 返回上一步</div>
                 <div id="btn_step3_next" class="btn_next"
-                     onclick="new_show_price('ajax/new_get_pg_price.html','show_price')">查看价格 >
+                     onclick="getImputed('ajax/new_get_pg_price.html','show_price')">查看价格 >
                 </div>
             </div>
         </div>
@@ -223,6 +227,7 @@
         }
         return null;
     }
+
     var phone=GetQueryString("phoneId");
     console.log(phone);
     new Vue({
@@ -261,6 +266,56 @@
                 .then(response =>{this.thirdlyList = response.data;})
         }
     });
+</script>
+<script type="text/javascript">
+    function getImputed() {
+        //axios的get请求。get方法中放的URL。then是后台服务器返回的数据接收方法（回调函数）
+        //response是后台返回的数据参数
+        // axios.get("http://localhost:8080/springmvc/book/page/1").then(function (response) {
+        //     alert(response.data)
+        // })
+        function GetQueryString(name)
+        {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null){
+                return decodeURI(r[2]);
+            }
+            return null;
+        }
+        var flag	=	true;
+        $("#property_step3 input").each(function(){
+            if($(this).val()==0){
+                flag=false;
+                return false;
+            }
+        });
+        if(!flag){
+            alert('请选择评估参数');
+            return false;
+        }
+        var price=GetQueryString("phonePrice");
+        var phoneId=GetQueryString("phoneId")
+        console.log("原价"+price)
+        var arr=new Array();
+        $(".selected").each(function(){
+            arr.push( $(this).find("input").val());
+        });
+        var array=new Array();
+        $(".selected").each(function(){
+            array.push($(this).find(".property_value i").text());
+        });
+        console.log(arr);
+        axios.post("http://localhost:8080/recycle/imputed",{imputedList:arr,phonePrice:price,phoneId:phoneId,type:array})
+            .then(function (response) {
+                //调用成功，执行then response.data
+                window.location.href="http://localhost:8080/recycle/html/price1.html";
+
+            }).catch(function (exception) {
+            //失败就会执行catch方法
+            //获取后台错误
+        })
+    }
 </script>
 </body>
 </html>

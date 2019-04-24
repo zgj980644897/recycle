@@ -32,6 +32,8 @@ public class UserController {
         try {
             subject.login(new UsernamePasswordToken(userVO.getUsername(),userVO.getPassword()));
             jsonResultVO.setCode(1);
+            TbUser user = userServiceImpl.login(userVO);
+            session.setAttribute("user",user);
         } catch (AuthenticationException e) {
             e.printStackTrace();
             jsonResultVO.setCode(0);
