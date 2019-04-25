@@ -21,4 +21,9 @@ public class BrandServiceImpl implements IBrandService {
     public List<TbPhone> queryPhone() {
         return brandMapper.queryPhone();
     }
+
+    @Override
+    public List<TbPhone> queryBrandPhone(int brandId) {
+        return brandMapper.queryBrandPhone(brandId);
+    }
 }

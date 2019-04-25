@@ -94,4 +94,18 @@ public class TbUser {
     this.userWx = userWx;
   }
 
+  @Override
+  public String toString() {
+    return "TbUser{" +
+            "userId=" + userId +
+            ", userName='" + userName + '\'' +
+            ", userPhone='" + userPhone + '\'' +
+            ", userPassword='" + userPassword + '\'' +
+            ", userAdd='" + userAdd + '\'' +
+            ", userAdd1='" + userAdd1 + '\'' +
+            ", userAdd2='" + userAdd2 + '\'' +
+            ", userBank='" + userBank + '\'' +
+            ", userWx='" + userWx + '\'' +
+            '}';
+  }
 }

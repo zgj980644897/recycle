@@ -8,4 +8,5 @@ import java.util.List;
 public interface IBrandService {
     List<BrandVO> queryBrand();
     List<TbPhone> queryPhone();
+    List<TbPhone> queryBrandPhone(int brandId);
 }

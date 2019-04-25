@@ -1,19 +1,15 @@
-package com.qianfeng.assess.vo;
+package com.qianfeng.order.vo;
 
-public class CarVO {
+import java.util.List;
+
+public class ShopOrderVO {
     private Long shopId;
     private String shopPic;
     private String shopPhoneName;
     private Long shopWreckPrice;
     private Long shoppingId;
-
-    public Long getShoppingId() {
-        return shoppingId;
-    }
-
-    public void setShoppingId(Long shoppingId) {
-        this.shoppingId = shoppingId;
-    }
+    private String shoppingType;
+    private List<String> shoppingTypeList;
 
     public Long getShopId() {
         return shopId;
@@ -47,13 +43,40 @@ public class CarVO {
         this.shopWreckPrice = shopWreckPrice;
     }
 
+    public Long getShoppingId() {
+        return shoppingId;
+    }
+
+    public void setShoppingId(Long shoppingId) {
+        this.shoppingId = shoppingId;
+    }
+
+    public String getShoppingType() {
+        return shoppingType;
+    }
+
+    public void setShoppingType(String shoppingType) {
+        this.shoppingType = shoppingType;
+    }
+
+    public List<String> getShoppingTypeList() {
+        return shoppingTypeList;
+    }
+
+    public void setShoppingTypeList(List<String> shoppingTypeList) {
+        this.shoppingTypeList = shoppingTypeList;
+    }
+
     @Override
     public String toString() {
-        return "CarVO{" +
+        return "ShopOrderVO{" +
                 "shopId=" + shopId +
                 ", shopPic='" + shopPic + '\'' +
                 ", shopPhoneName='" + shopPhoneName + '\'' +
                 ", shopWreckPrice=" + shopWreckPrice +
+                ", shoppingId=" + shoppingId +
+                ", shoppingType='" + shoppingType + '\'' +
+                ", shoppingTypeList='" + shoppingTypeList + '\'' +
                 '}';
     }
 }

@@ -21,4 +21,7 @@
     <select id="queryPhone" resultMap="phoneResultMap">
         select phone_id,phone_name,phone_pic,phone_price from tb_phone where phone_parent>0
     </select>
+    <select id="queryBrandPhone" resultMap="phoneResultMap">
+        select phone_id,phone_name,phone_pic,phone_price from tb_phone where phone_parent>0 and phone_parent=#{brandId}
+    </select>
 </mapper>

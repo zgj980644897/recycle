@@ -1,6 +1,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>订单提交-回购网 -  手机回收网 | 二手手机交易 | 笔记本回收 | 平板回收</title>
@@ -29,6 +29,8 @@
     <script src="../js/new_js/menu.js" type="text/javascript"></script>
 
     <script src="../js/new_js/index.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
@@ -38,7 +40,7 @@
 <script type="text/javascript" src="../js/order.js" ></script>
 <script type="text/javascript" src="../js/city.js"></script>
 <script type="text/javascript" src="../js/city_jilian.js"></script>
-<form name="myFrom" id="myFrom" method="post" action="/order/sub.html">
+<form name="myFrom" id="myFrom" method="post" >
     <input type="hidden" name="ifalipay" id="ifalipay" value="n" />
     <input type="hidden" name="validate_code" value="45c512b37e2922042a98bd0b44dcb245" />
     <input type="hidden" name="typeid" id="typeid" value="1" />
@@ -101,13 +103,15 @@
                         <ul class="contact_list">
                             <li class="contact_text">联系人：</li>
                             <li class="contact_texts"><span class="img_1"><img
-                                    src="../images/in_1.gif"></span><span class="img_2"><input name="link_name" id="link_name" type="text"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
+                                    src="../images/in_1.gif"></span><span class="img_2">
+                                <input name="link_name" id="link_name" type="text" v-model="order.linkName"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
                             <div class="clear"></div>
                         </ul>
                         <ul class="contact_list">
                             <li class="contact_text">手机号码：</li>
                             <li class="contact_texts"><span class="img_1"><img
-                                    src="../images/in_1.gif"></span><span class="img_2"><input name="mobile" id="mobile" type="text"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
+                                    src="../images/in_1.gif"></span><span class="img_2">
+                                <input name="mobile" id="mobile" type="text"  v-model="order.mobile"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
                             <div class="clear"></div>
                         </ul>
                         <div class="mod_select" style="margin-bottom:12px;">
@@ -117,22 +121,22 @@
 
                                     <div class="select_box">
                                         <span class="select_txt" id="text_province">请选择省份</span><em class="selet_open"><b></b></em>
-                                        <input type="hidden" id="province" name="province" value="0"  />
+                                        <input type="hidden" id="province" name="province" value="0" v-model="order.province" />
                                         <div class="option" id="option_province"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="select_box">
                                         <span class="select_txt" id="text_city">请选择城市</span><em class="selet_open"><b></b></em>
-                                        <input type="hidden" id="city" name="city" value="0"  />
+                                        <input type="hidden" id="city" name="city" value="0" value="0" v-model="order.city" />
                                         <div class="option" id="option_city"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="select_box">
                                         <span class="select_txt" id="text_district">请选择区县</span><em class="selet_open"><b></b></em>
-                                        <input type="hidden" id="district" name="district" value="0"  />
-                                        <input type="hidden" id="school_id" name="school_id" value="0"  />
+                                        <input type="hidden" id="district" name="district" value="0" v-model="order.district" />
+                                        <input type="hidden" id="school_id" name="school_id" value="0" v-model="order.schoolId" />
                                         <div class="option" style="position:absolute;right:0 !important; " id="option_district">
                                         </div>
                                     </div>
@@ -146,25 +150,27 @@
                             <ul class="contact_list">
                                 <li class="contact_text">详细地址：</li>
                                 <li class="contact_texts"><span class="img_1"><img
-                                        src="../images/in_1.gif"></span><span class="img_2_area"><input name="address" id="address" type="text"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span></li>
+                                        src="../images/in_1.gif"></span><span class="img_2_area">
+                                    <input name="address" id="address" type="text" v-model="order.address"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span></li>
                                 <div class="clear"></div>
                             </ul>
                         </div>
                     </div>
                     <link rel="stylesheet" type="text/css" href="../js/calendar/calendar.css"/>
-                    <script type="text/javascript" src="js/calendar.php"></script>
+                    <!--<script type="text/javascript" src="js/calendar.php"></script>-->
                     <!--上门取件时间-->
                     <div class="contact_list" style="margin-top:20px;">
                         <div id="div_addr" style="display:none;">
                             <ul><li class="contact_textval">上门取件时间：</li></ul>
                             <ul class="area_list">
-                                <li class="area_list_texts"><input name="stime" id="stime" type="text" style="border:0px;" onfocus="return showCalendar('stime', '%Y-%m-%d %H:%m', '24', false, 'stime');"  value=""></li>
+                                <li class="area_list_texts">
+                                    <input name="stime" id="stime" type="text" v-model="order.stime" style="border:0px;" onfocus="return showCalendar('stime', '%Y-%m-%d %H:%m', '24', false, 'stime');"  value=""></li>
                                 <li class="area_list_bg"></li>
                             </ul>
                             <ul class="area_lists"><li>到</li></ul>
                             <ul class="area_list">
                                 <li class="area_list_texts">
-                                    <input name="etime" id="etime"   type="text" style="border:0px; "onfocus="return showCalendar('etime', '%Y-%m-%d %H:%m', '24', false, 'etime');" value="">
+                                    <input name="etime" id="etime"   type="text" style="border:0px; "onfocus="return showCalendar('etime', '%Y-%m-%d %H:%m', '24', false, 'etime');" value="" v-model="order.etime">
                                 </li>
                                 <li class="area_list_bg"></li>
                             </ul>
@@ -172,7 +178,7 @@
                         </div>
 
                         <div class="kuaidi"><!--<a href="###" class="on">回购网联系快递</a>-->
-                            <input type="checkbox" value='y' name="express_true" id="express_true" onclick="express_true_click()"  /><label for="express_true">回购网联系快递</label>
+                            <input type="checkbox" value='y' name="express_true" id="express_true" v-model="order.expressTrue" onclick="express_true_click()"  /><label for="express_true">回购网联系快递</label>
                         </div>
                         <script>
                             function	express_true_click(){
@@ -196,7 +202,7 @@
                 </div>
 
                 <!-- 通用联系方式end-->
-                <div  id="s1" class="block">
+                <div  id="s0" class="block">
                     <!-- 银行收款start-->
                     <div class="sub_con_foot">
                         <div class="contact_ways">收款银行账号：</div>
@@ -205,7 +211,7 @@
 
                         <div class="contanct_c check" name="item_member_bank" id="item_member_bank_0">
                             <label>
-                                <input type="radio" name="member_bank" value="0" checked="checked" onClick="new_member_bank(0)" />
+                                <input type="radio" name="member_bank" value="0" v-model="order.memberBank" checked="checked" onClick="new_member_bank(0)" />
                                 <span>使用新账号</span></label>
                         </div>
                         <div   id="new_member_bank_div">
@@ -214,7 +220,7 @@
                                 <ul>
                                     <li class="contact_text">银行名称：</li>
                                     <li class="contact_select">
-                                        <select name="bankname" id="bankname">
+                                        <select name="bankname" id="bankname"  v-model="order.bankname">
                                             <option value="0">请选择银行</option>
                                             <option value="2">中国银行</option>
                                             <option value="1">招商银行</option>
@@ -266,13 +272,15 @@
                             <ul class="contact_list">
                                 <li class="contact_text">开户姓名：</li>
                                 <li class="contact_texts"><span class="img_1"><img
-                                        src="../images/in_1.gif"></span><span class="img_2"><input name="realname" id="realname" type="text"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> <span class="contact_textsval">开户时的真实姓名</span></li>
+                                        src="../images/in_1.gif"></span><span class="img_2">
+                                    <input name="realname" id="realname" type="text" v-model="order.realname"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> <span class="contact_textsval">开户时的真实姓名</span></li>
                                 <div class="clear"></div>
                             </ul>
                             <ul class="contact_list" style="position:relative">
                                 <li class="contact_text">银行帐号：</li>
                                 <li class="contact_texts"><span class="img_1"><img
-                                        src="../images/in_1.gif"></span><span class="img_2"><input name="card_sn" id="card_sn" type="text" onkeyup="show_card_sn_format()" onfocus="show_card_sn_format()" onblur="card_sn_blur()"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> <span class="contact_textsval">我们对用户帐号信息严格保密，请放心填写！</span></li>
+                                        src="../images/in_1.gif"></span><span class="img_2">
+                                    <input name="card_sn" id="card_sn" type="text" v-model="order.cardSn" onkeyup="show_card_sn_format() " onfocus="show_card_sn_format()" onblur="card_sn_blur()"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> <span class="contact_textsval">我们对用户帐号信息严格保密，请放心填写！</span></li>
                                 <div class="clear"></div>
 
                                 <div id="card_sn_format" style="display:none;position:absolute; left:100px; top:-26px; z-index:10000; border:1px solid #ccc; background:#fff9c9; height:24px; line-height:24px; padding:0 5px; font-size:16px; color:#2056ff; font-weight:bold; font-family:'微软雅黑';"></div>
@@ -288,7 +296,7 @@
                     <div class="contact_ways m_unclock">
                         手机解锁情况：
                         <label>
-                            <span><input type="radio" name="lock" value="y">已解锁</span>
+                            <span><input type="radio" name="lock" value="y" v-model="order.lock">已解锁</span>
                             <span class="guide">解锁指引<i>？</i></span>
                             <span style="margin-left:30px;"><input type="radio"  name="lock" value="n" >回购网解锁</span>
                         </label>
@@ -300,7 +308,7 @@
                         </div>
                     </div>
                     <div style="padding-left:100px; margin-bottom:15px;">
-                        <input style="width:410px;padding:3px 10px;display:none;" type="text" name="pwd" placeholder="请提供开机密码和iCloud或Flyme账号密码（备注类型并以空格间隔）">
+                        <input style="width:410px;padding:3px 10px;display:none;" type="text" name="pwd" v-model="order.pwd" placeholder="请提供开机密码和iCloud或Flyme账号密码（备注类型并以空格间隔）">
                         <p style="margin-top:10px;">
                             温馨提示：发货前请确保以下账号密码已解锁，未解除将无法质检导致交易失败。<br>
                             1、开机密码；2、iCloud或Flyme账号密码；3、还原密码
@@ -351,14 +359,16 @@
                         <ul class="contact_list">
                             <li class="contact_text">姓名：</li>
                             <li class="contact_texts"><span class="img_1"><img
-                                    src="../images/in_1.gif"></span><span class="img_2"><input name="alipay_realname" id="alipay_realname" type="text" value=""></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
+                                    src="../images/in_1.gif"></span><span class="img_2">
+                                <input name="alipay_realname" id="alipay_realname" type="text" value="" v-model="order.alipayRealname"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*</em></span> </li>
                             <div class="clear"></div>
                         </ul>
 
                         <ul class="contact_list">
                             <li class="contact_text">支付宝账号：</li>
                             <li class="contact_texts"><span class="img_1"><img
-                                    src="../images/in_1.gif"></span><span class="img_2"><input name="alipay_username" id="alipay_username" type="text" value="" ></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*亲，必须是实名认证的支付宝账号哦！</em></span> </li>
+                                    src="../images/in_1.gif"></span><span class="img_2">
+                                <input name="alipay_username" id="alipay_username" type="text" value="" v-model="order.alipayUsername"></span> <span class="img_1"><IMG src="../images/in_3.gif"></span><span class="img_3"><em style="color: red; font-size:12px;margin-right: 10px;">*亲，必须是实名认证的支付宝账号哦！</em></span> </li>
                             <div class="clear"></div>
                         </ul>
                     </div>
@@ -393,7 +403,7 @@
 
                     <div class="contanct_c" id="div_mianjiao_method_2">
                         <label>
-                            <input type="radio" name="mianjiao_method" id="mianjiao_method_2" value="2" onClick="mianjiao_method_click(2)" />
+                            <input type="radio" name="mianjiao_method" id="mianjiao_method_2" value="2" v-model="order.mianjiaoMethod2" onClick="mianjiao_method_click(2)" />
                             <span style="font-weight:bold;">上门面交</span>
                             <span >目前支持福田区，罗湖区，南山区（建议选择地铁口面交）</span>
                         </label>
@@ -409,8 +419,8 @@
                         <em ><input type="radio" name="mianjiao_hour" value="3" style="vertical-align:middle"/><i>18:00-21:00</i><div class="clear"></div></em>
                                     </span>
                         <span >沿途临近（地铁）：
-            <input type="text" name="ditie_xian" id="ditie_xian" style="width:60px;" /> 线
-            <input type="text" name="ditie_zhan" id="ditie_zhan" style="width:60px;" /> 站
+            <input type="text" name="ditie_xian" id="ditie_xian" v-model="order.ditieXian" style="width:60px;" /> 线
+            <input type="text" name="ditie_zhan" id="ditie_zhan" v-model="order.ditieZhan" style="width:60px;" /> 站
             </span>
                     </div>
                     <script>
@@ -456,7 +466,8 @@
       您可选择<a href="http://www.ihuigo.com/html/baoxian.html" style="background:none; padding:0px; color:#03F; font-weight:bold;" target="_blank">参与中国人民财产保险投保计划</a></span>
             &nbsp;&nbsp;
             <label><a href="/service/legal.html" target="_blank"  class="on">我已查看并同意回收协议</a></label>
-            <input type="button" name="sub_button" id="sub_button" value="提交回购单" class="input_btn2" onclick="return checkfrom()" />
+            <!--onclick="return checkfrom()"-->
+            <input type="button" name="sub_button" id="sub_button" value="提交回购单" class="input_btn2" v-on:click="addOrder()" />
         </div>
 
         <dl id="baoxian_content" style="display:none;">
@@ -469,56 +480,57 @@
 
     </div>
     <!--订单-->
-    <div class="dingdan">
+    <div class="dingdan" id="shopOrder">
         <div class="contact_way">订单详情：</div>
         <table width="100%" border="0" cellpadding="0" cellspacing="1"  class="table1">
-            <tbody>
+            <tbody >
             <tr>
                 <th width="20%" height="35">型号</th>
                 <th width="16%">回购价格</th>
                 <th width="64%">评估描述情况</th>
             </tr>
-            <tr>
+            <tr v-for="shopOrder in orderList">
                 <td height="95" align="center">
-                    <div class="contact_way_img"><img src="http://img.ihuigo.com/goods_a/739b3910f020832305a94a6a96eec952.jpg"></div>
-                    <div class="contact_way_txt"><p><span>iphone 7</span></p></div>
+                    <div class="contact_way_img"><img :src="'http://localhost/images/'+shopOrder.shopPic" width="56" height="42"></div>
+                    <div class="contact_way_txt"><p><span>{{shopOrder.shopPhoneName}}</span></p></div>
                     <div class="clear"></div>
                 </td>
                 <td align="center" style="line-height:22px;">
-                    <h3>￥2800.00</h3>
+                    <h3 >{{shopOrder.shopWreckPrice}}</h3>
+
                 </td>
                 </td>
                 <td style="padding-left:28px; line-height: 18px;text-align: left;">
-		  								<span>
-									<a>大陆行货</a>
-									|<a>保修一个月以上</a>
-								</span>
+		  								<!--<span>-->
+									<!--<a> {{shopOrder.shoppingTypeList.get(0)}}</a>-->
+									<!--|<a>{{shopOrder.shoppingTypeList.get(1)}}</a>-->
+								<!--</span>-->
                     <br />
 
-                    <span>
-									<a>红色</a>
-									 |&nbsp;&nbsp;<a>完好无破损</a>
-									 |&nbsp;&nbsp;<a>显示完好</a>
-									 |&nbsp;&nbsp;<a>通话功能正常</a>
-									 |&nbsp;&nbsp;<a>iCloud账号可以解除</a>
-									 |&nbsp;&nbsp;<a>全新机</a>
-									 |&nbsp;&nbsp;<a>开机正常</a>
-									 |&nbsp;&nbsp;<a>机身无进水受潮</a>
-									 |&nbsp;&nbsp;<a>按键接口及卡槽正常</a>
-									 |&nbsp;&nbsp;<a>无拆修</a>
-									 |&nbsp;&nbsp;<a>指纹功能正常</a>
-									 |&nbsp;&nbsp;<a>蓝牙/wifi功能正常</a>
-									 |&nbsp;&nbsp;<a>照相及感光功能正常</a>
-									 |&nbsp;&nbsp;<a>有换机</a>
-									 |&nbsp;&nbsp;<a>32G</a>
-									 |&nbsp;&nbsp;<a>机身无变形</a>
+                    <span v-for="clist in shopOrder.shoppingTypeList">
+									<a>{{clist}}&nbsp;|&nbsp;</a>
+									 <!--|&nbsp;&nbsp;<a>完好无破损</a>-->
+									 <!--|&nbsp;&nbsp;<a>显示完好</a>-->
+									 <!--|&nbsp;&nbsp;<a>通话功能正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>iCloud账号可以解除</a>-->
+									 <!--|&nbsp;&nbsp;<a>全新机</a>-->
+									 <!--|&nbsp;&nbsp;<a>开机正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>机身无进水受潮</a>-->
+									 <!--|&nbsp;&nbsp;<a>按键接口及卡槽正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>无拆修</a>-->
+									 <!--|&nbsp;&nbsp;<a>指纹功能正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>蓝牙/wifi功能正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>照相及感光功能正常</a>-->
+									 <!--|&nbsp;&nbsp;<a>有换机</a>-->
+									 <!--|&nbsp;&nbsp;<a>32G</a>-->
+									 <!--|&nbsp;&nbsp;<a>机身无变形</a>-->
 								</span>
 
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="foot_bor"> <em>1</em>件产品总计回收价格<em style="font-size:18px;">￥2800</em> <!--<span>赠送环保券 <i>30</i>元--></span></div>
+        <div class="foot_bor"> <em>{{orderList.length}}</em>件产品总计回收价格<em id="total"  style="font-size:18px;">￥{{sum}}</em> <input type="hidden" :value="sum" v-model="order.orderPrice"/><!--<span>赠送环保券 <i>30</i>元--></span></div>
     </div>
     <!--订单-->
     </div>
@@ -547,6 +559,79 @@
 
     }
     aa(2);
+</script>
+<script type="text/javascript">
+
+    new Vue({
+        el:"#myFrom",
+        //el:"#shopOrder",
+        data:{
+            order:{linkName:"",mobile:"",province:"",city:"",district:"",schoolId:"",address:"",stime:"",etime:"",expressTrue:"",memberBank:"",bankname:"",realname:"",cardSn:"",lock:"",pwd:"",alipayRealname:"",alipayUsername:"",mianjiaoMethod2:"",ditieXian:"",ditieZhan:"",orderPrice:""},
+            orderList:{shopPhoneName:"iphone100"},
+            sum:null
+            },
+        methods:{
+            //访问后台获取数据
+            //mounted处于生命周期定义数据之后，重组html标签之前
+            addOrder:function addOrder() {
+                var a = this.order;
+
+                console.log(a);
+
+                axios.post("http://localhost:8080/recycle/addOrder",a)
+                //此处this代表是vue对象
+                    .then(function (response) {
+                        //调用成功，执行then
+                        window.location.href = "order.html";
+                    })
+            }
+            },
+
+            mounted(){
+                //访问后台获取数据
+                //mounted处于生命周期定义数据之后，重组html标签之前
+                axios.get("http://localhost:8080/recycle/shopOrder")
+                //此处this代表是vue对象
+                    .then(response =>{this.orderList = response.data;
+
+                var sum=0;
+                for (var i=0;i<this.orderList.length;i++){
+                    sum=sum+this.orderList[i].shopWreckPrice;
+                    console.log(sum)
+                }
+                this.order.orderPrice=sum;
+                this.sum=sum;
+            })
+            }
+
+    });
+</script>
+<script type="text/javascript">
+    // $(function (){
+    //     var song=0;
+    //     console.log("打印"+$(".ppp").text());
+    //     $(".ppp").each(function() {
+    //         console.log($(this).next('input').val());
+    //         song=Number(song)+Number($(this).text());
+    //         console.log(song);
+    //         console.log($(this).text());
+    //     });
+    //     $("#total").text(song);
+    // });
+
+    // new Vue({
+    //     el:"#shopOrder",
+    //     data:{
+    //         orderList:{shopPhoneName:"iphone100"}
+    //     },
+    //     mounted(){
+    //         //访问后台获取数据
+    //         //mounted处于生命周期定义数据之后，重组html标签之前
+    //         axios.get("http://localhost:8080/recycle/shopOrder")
+    //         //此处this代表是vue对象
+    //             .then(response =>{this.orderList = response.data;})
+    //     }
+    // });
 </script>
 </body>
 </html>

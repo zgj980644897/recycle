@@ -604,7 +604,7 @@
                             <tr id="'+item_id+'" v-for="shop in shoppingCar">
                                 <td class="table-padding">
                                     <div class="mui-pic">
-                                    <a href="javascript:" class="close_btn"><img src="./iphone 7-回收网 - 手机回收网 _ 二手手机交易 _ 笔记本回收 _ 平板回收_files/close.png" :value="shop.shopId"  onclick="deleteGood(this)"></a>
+                                    <a href="javascript:" class="close_btn"><img src="./iphone 7-回收网 - 手机回收网 _ 二手手机交易 _ 笔记本回收 _ 平板回收_files/close.png" value="shop.shopId"  onclick="deleteGood(this)"><input type="hidden" :value="shop.shoppingId"></a>
                                     <a href="javascript:void(0)"><img :src="'http://localhost/images/'+shop.shopPic" width="74" height="56"></a></div>
                                 </td>
                                 <td>
@@ -619,7 +619,7 @@
                 </div>
                 <!--结算-->
                 <div class="mui-jiesuan">
-                    <p>已选<em class="cart_total_items">{{shoppingCar.length}}</em>台共计<em id="cart_total">￥800</em></p>
+                    <p>已选<em class="cart_total_items">{{shoppingCar.length}}</em>台共计<em id="cart_total">￥{{sum}}</em></p>
                     <input type="button" value="去结算" class="mui-button" onclick="gosettle()">
                 </div>
                 <!--结算-->
@@ -632,8 +632,9 @@
     <script type="text/javascript">
         function deleteGood(obj) {
 //            alert(cartId);
-            var cartId = $("obj").val();
-            console.log(cartId);
+            var cartId = $(obj).next('input').val();
+            console.log("值是："+cartId);
+            console.log("值2是："+obj);
             $.post("http://localhost:8080/recycle/delete/deleteCar",
                     {
                         cartId:cartId,
@@ -656,7 +657,7 @@
                     alert("您还没有登录，请登录");
                     window.location.href="login.html?settle=settle";
                 } else {
-                    window.location.href="good/order";
+                    window.location.href="cart.html";
                 }
             });
         }
@@ -718,7 +719,8 @@
         new Vue({
             el:"#shopping",
             data:{
-                shoppingCar:"10"
+                shoppingCar:"10",
+                sum:null
             },
             //mounted是vue生命周期的钩子函数，此方法是vue自带的生命周期方法
             mounted() {
@@ -726,8 +728,15 @@
                 //mounted处于生命周期定义数据之后，重组html标签之前
                 axios.get("http://localhost:8080/recycle/car")
                 //此处this代表是vue对象
-                    .then(response =>{ this.shoppingCar = response.data;}
-            )
+                    .then(response =>{ this.shoppingCar = response.data;
+                var sum=0;
+                for (var i=0;i<this.shoppingCar.length;i++){
+                    sum=sum+this.shoppingCar[i].shopWreckPrice;
+                    console.log(sum)
+                }
+
+                this.sum=sum;
+                    })
 
                 // axios.get("http://localhost:8080/springmvc/book/page/1")
                 //     .then(function (response) {

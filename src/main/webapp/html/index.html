@@ -58,8 +58,8 @@
         </div>
         <div class="shortcut-right">
             <ul id='login_show'>
-                <li><a href="members/login.html" rel="nofollow">登录</a></li>
-                <li><a href="members/register.html" rel="nofollow">注册</a></li>
+                <li><a href="login.html" rel="nofollow">登录</a></li>
+                <li><a href="register.html" rel="nofollow">注册</a></li>
                 
             </ul>
         </div>
@@ -153,7 +153,7 @@
                 <div class="brand_main">
                     <div class="brand_hot" id="brandId" >
 
-                        <a href="ershouhtc.html" v-for="brand in phoneList">{{brand.phoneName}} <em>|</em></a>
+                        <a :href="'index.html?brandId='+brand.phoneId" v-for="brand in phoneList">{{brand.phoneName}} <em>|</em></a>
 
 
                         <a href="ershoumeizu.html">魅族</a>
@@ -165,12 +165,12 @@
                 </div>
             </div>
             <!--全部手机品牌-->
-            <div class="search_main">
+            <div class="search_main" id="phoneId">
                 <div class="search_title"><h2 class="list-item">手机回收</h2>&nbsp;&nbsp;&nbsp;&nbsp;<em></em>搜索到<em>
-                    1852 </em>个结果
+                    {{listPhone.length}} </em>个结果
                 </div>
 
-                <dl class="pic_list" id="phoneId">
+                <dl class="pic_list">
                     <dd v-for="phone in listPhone">
                         <div class="pic_list_box" >
                             <div class="pic_list_img"><a :href="'http://localhost:8080/recycle/html/info.html?phoneId='+phone.phoneId+'&phonePrice='+phone.phonePrice" :title="phone.phoneName+' 回收价格评估'"><img
@@ -358,13 +358,24 @@
            //  })
         }
     });
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null){
+            return decodeURI(r[2]);
+        }
+        return null;
+    }
+    var brand=Number(GetQueryString("brandId"));
+    console.log(brand)
     new Vue({
         el:"#phoneId",
         data:{
             listPhone:[{phoneName:"iphone 7",phonePic:"iphone7.jpg"},{phoneName:"iphone 8",phonePic:"iphone7.jpg"}]
         },
         mounted(){
-            axios.get("http://localhost:8080/recycle/phone/callphone")
+            axios.post("http://localhost:8080/recycle/callphone",{brandId:brand})
             //此处this代表是vue对象
                 .then(response =>{this.listPhone = response.data;})
         }

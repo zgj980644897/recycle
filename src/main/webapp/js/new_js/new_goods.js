@@ -89,7 +89,11 @@ function auto_go_next(obj){
 	var p_div_id	=	$(obj).parent().parent().parent().parent().attr('id');
 	if(p_div_id		==	'property_step1'){
 		var n		=	true;
-		$("#"+p_div_id+" input").each(function(){if($(this).val()==0){n=false;return false;}});
+		$("#"+p_div_id+" input").each(function(){
+			if($(this).val()==0){
+				n=false;return false;
+			}
+		});
 		if(n)	step1_next();
 	}
 }
