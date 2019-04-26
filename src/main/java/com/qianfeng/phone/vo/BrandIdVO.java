@@ -2,6 +2,15 @@ package com.qianfeng.phone.vo;
 
 public class BrandIdVO {
     private String brandId;
+    private String seek;
+
+    public String getSeek() {
+        return seek;
+    }
+
+    public void setSeek(String seek) {
+        this.seek = seek;
+    }
 
     public String getBrandId() {
         return brandId;
@@ -15,6 +24,7 @@ public class BrandIdVO {
     public String toString() {
         return "BrandIdVO{" +
                 "brandId='" + brandId + '\'' +
+                ", seek='" + seek + '\'' +
                 '}';
     }
 }

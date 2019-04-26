@@ -15,16 +15,25 @@ public class BrandController {
     @Autowired
     private IBrandService brandServiceImpl;
     @RequestMapping(method = RequestMethod.POST)
-    public List<TbPhone> queryPhone(@RequestBody BrandIdVO brandId){
-        System.out.println("品牌id："+brandId);
-        if (brandId==null||"0".equals(brandId.getBrandId())){
-            List<TbPhone> list=brandServiceImpl.queryPhone();
-            System.out.println(list);
-            return list;
-        }else{
-            int parentId = Integer.parseInt(brandId.getBrandId());
-            List<TbPhone> phones = brandServiceImpl.queryBrandPhone(parentId);
-            return phones;
+    public List<TbPhone> queryPhone(@RequestBody BrandIdVO brandId) {
+        System.out.println("品牌id：" + brandId);
+        System.out.println("搜索词：" + brandId.getSeek());
+        if (brandId.getSeek() == null||"".equals(brandId.getSeek())||"0".equals(brandId.getSeek())) {
+            System.out.println("执行遍历2");
+            if (brandId == null || "0".equals(brandId.getBrandId())) {
+                List<TbPhone> list = brandServiceImpl.queryPhone();
+                System.out.println(list);
+                return list;
+            } else {
+                int parentId = Integer.parseInt(brandId.getBrandId());
+                List<TbPhone> phones = brandServiceImpl.queryBrandPhone(parentId);
+                return phones;
+            }
+        }else {
+            System.out.println("执行查1");
+            List<TbPhone> list = brandServiceImpl.queryPhoneByPhoneName(brandId.getSeek(),brandId.getSeek());
+            System.out.println("搜索到的："+list);
+            return  list;
         }
     }
 }

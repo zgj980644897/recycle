@@ -9,4 +9,5 @@ public interface IBrandService {
     List<BrandVO> queryBrand();
     List<TbPhone> queryPhone();
     List<TbPhone> queryBrandPhone(int brandId);
+    List<TbPhone> queryPhoneByPhoneName(String seek,String seek1);
 }

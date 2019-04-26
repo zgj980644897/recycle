@@ -14,5 +14,7 @@
         #{order.mianjiaoMethod2},#{order.ditieXian},#{order.ditieZhan},#{order.shopId}
         );
     </insert>
-
+        <delete id="deleteShop">
+            delete from tb_shopping where shop_user_id=#{userId}
+        </delete>
 </mapper>

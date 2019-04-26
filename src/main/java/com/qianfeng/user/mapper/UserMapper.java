@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper {
     TbUser login (@Param("username") String username);
     void addUser(@Param("user") TbUser user);
+
 }

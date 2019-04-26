@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>手机回收_麦淘乐</title>
@@ -60,7 +60,7 @@
             <ul id='login_show'>
                 <li><a href="login.html" rel="nofollow">登录</a></li>
                 <li><a href="register.html" rel="nofollow">注册</a></li>
-                
+                <li><a href="http://localhost:8080/recycle/user/logout" rel="nofollow">注销登录</a></li>
             </ul>
         </div>
         <div class="clear"></div>
@@ -75,6 +75,7 @@
 </div>
 <!--头部-->
 <script type="text/javascript" src="../js/goods.js"></script>
+<div  id="phoneId">
 <div class="new_search" style="padding-bottom:20px">
     <div class="search-box">
         <div class="search-title">搜一下，看看你的二手闲置还值多少钱</div>
@@ -90,12 +91,14 @@
                     </ul>
                 </div>
             </div>
-            <form name="top_goods_search" id="top_goods_search" action="ershoushouji.html" method="get">
-                <input type="text" name="gname" id="top_name" value="请输入品牌型号搜索" class="input-txt"
+            <form name="top_goods_search" id="top_goods_search" action="index.html" method="get">
+                <input type="text" name="gname" id="top_name" value="" v-model="seek" class="input-txt"
+
                        onkeydown="if(event.keyCode==13) return top_search_goods();"
                        onFocus="if(this.value=='请输入品牌型号搜索'){this.value='';}"
                        onblur="if(this.value==''){this.value='请输入品牌型号搜索';}"/>
-                <input type="button" value="" class="input-btn" onclick="top_search_goods()"/>
+                <!--onclick="top_search_goods()"-->
+                <input type="button" value="" v-on:click="seek2"  class="input-btn" />
             </form>
         </div>
     </div>
@@ -146,13 +149,13 @@
                          style="vertical-align:middle"><span>400-xxxx-xxx</span></li>
             </ul>
         </div>
-        <div class="side_right">
+        <div class="side_right" >
             <!--全部手机品牌-->
             <div class="brand">
                 <div class="title2"><span><a href="goods.html"><strong>手机</strong> 品牌</a></span></div>
                 <div class="brand_main">
                     <div class="brand_hot" id="brandId" >
-
+                        <a href="index.html?brandId=0" >全部<em>|</em></a>
                         <a :href="'index.html?brandId='+brand.phoneId" v-for="brand in phoneList">{{brand.phoneName}} <em>|</em></a>
 
 
@@ -165,7 +168,7 @@
                 </div>
             </div>
             <!--全部手机品牌-->
-            <div class="search_main" id="phoneId">
+            <div class="search_main">
                 <div class="search_title"><h2 class="list-item">手机回收</h2>&nbsp;&nbsp;&nbsp;&nbsp;<em></em>搜索到<em>
                     {{listPhone.length}} </em>个结果
                 </div>
@@ -189,10 +192,10 @@
                 <div class="clear"></div>
                 <div class="pageStr">
                     <div class="ihuigo_page"><span class="cur_link">1</span><span><a
-                            href="ershoushouji/2.html">2</a></span><span><a
-                            href="ershoushouji/3.html">3</a></span><span><a
-                            href="ershoushouji/4.html">4</a></span><span><a
-                            href="ershoushouji/5.html">5</a></span><span><a href="ershoushouji/6.html">6</a></span><span
+                            href="index.html">2</a></span><span><a
+                            href="index.html">3</a></span><span><a
+                            href="index.html">4</a></span><span><a
+                            href="index.html">5</a></span><span><a href="ershoushouji/6.html">6</a></span><span
                             class="next_link"><a href="ershoushouji/2.html">下一页</a></span><span class="last_link"><a
                             href="ershoushouji/232.html">尾页</a></span></div>
                 </div>
@@ -200,6 +203,7 @@
         </div>
         <div class="clear"></div>
     </div>
+</div>
 </div>
 <!--查询结果-->
 <script type="text/javascript">
@@ -337,27 +341,27 @@
 </script>
 
 <script type="text/javascript">
-    new Vue({
-        el:"#brandId",
-        data:{
-            phoneList:null
-        },
-        //mounted是vue生命周期的钩子函数，此方法是vue自带的生命周期方法
-        mounted() {
-            //访问后台获取数据
-            //mounted处于生命周期定义数据之后，重组html标签之前
-
-            axios.get("http://localhost:8080/recycle/phone/brand")
-            //此处this代表是vue对象
-                   .then(response =>{ this.phoneList = response.data;})
-
-           //axios.get("http://localhost:8080/springmvc/book/page/1")
-             //   .then(function (response) {
-            //    此处的this代表axios对象
-              //  this.bookList = response.data;
-           //  })
-        }
-    });
+    // new Vue({
+    //     el:"#brandId",
+    //     data:{
+    //         phoneList:null
+    //     },
+    //     //mounted是vue生命周期的钩子函数，此方法是vue自带的生命周期方法
+    //     mounted() {
+    //         //访问后台获取数据
+    //         //mounted处于生命周期定义数据之后，重组html标签之前
+    //
+    //         axios.get("http://localhost:8080/recycle/phone/brand")
+    //         //此处this代表是vue对象
+    //                .then(response =>{ this.phoneList = response.data;})
+    //
+    //        //axios.get("http://localhost:8080/springmvc/book/page/1")
+    //          //   .then(function (response) {
+    //         //    此处的this代表axios对象
+    //           //  this.bookList = response.data;
+    //        //  })
+    //     }
+    // });
     function GetQueryString(name)
     {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -369,15 +373,40 @@
     }
     var brand=Number(GetQueryString("brandId"));
     console.log(brand)
+    var seek=0;
+    seek=$("#top_name").val();
+    console.log("seek:"+seek)
+    //var seek3=this.seek;
     new Vue({
         el:"#phoneId",
         data:{
-            listPhone:[{phoneName:"iphone 7",phonePic:"iphone7.jpg"},{phoneName:"iphone 8",phonePic:"iphone7.jpg"}]
+            listPhone:[{phoneName:"iphone 7",phonePic:"iphone7.jpg"},{phoneName:"iphone 8",phonePic:"iphone7.jpg"}],
+            phoneList:null,
+            seek:null
         },
         mounted(){
-            axios.post("http://localhost:8080/recycle/callphone",{brandId:brand})
+            var seek3=this.seek;
+            axios.post("http://localhost:8080/recycle/callphone",{brandId:brand,seek:seek3})
             //此处this代表是vue对象
-                .then(response =>{this.listPhone = response.data;})
+                .then(response =>{this.listPhone = response.data;}),
+
+            axios.get("http://localhost:8080/recycle/phone/brand")
+            //此处this代表是vue对象
+                .then(respons =>{ this.phoneList = respons.data;})
+         },
+        methods:{
+            seek2:function () {
+                console.log("执行点击方法");
+                console.log("seek111:"+this.seek);
+                var seek4=this.seek;
+                axios.post("http://localhost:8080/recycle/callphone",{brandId:brand,seek:seek4})
+                //此处this代表是vue对象
+                    .then(response =>{this.listPhone = response.data;}),
+
+                axios.get("http://localhost:8080/recycle/phone/brand")
+                //此处this代表是vue对象
+                    .then(respons =>{ this.phoneList = respons.data;})
+            }
         }
     });
 </script>

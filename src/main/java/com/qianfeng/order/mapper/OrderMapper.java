@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface OrderMapper {
     void addOrder(@Param("order") TbOrder order);
+    void deleteShop(@Param("userId")int userId);
 }

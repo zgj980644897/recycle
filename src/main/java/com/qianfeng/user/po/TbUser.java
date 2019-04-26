@@ -12,7 +12,24 @@ public class TbUser {
   private String userAdd2;
   private String userBank;
   private String userWx;
+  private Long userFreez;
+  private Long userMoney;
 
+  public Long getUserFreez() {
+    return userFreez;
+  }
+
+  public void setUserFreez(Long userFreez) {
+    this.userFreez = userFreez;
+  }
+
+  public Long getUserMoney() {
+    return userMoney;
+  }
+
+  public void setUserMoney(Long userMoney) {
+    this.userMoney = userMoney;
+  }
 
   public long getUserId() {
     return userId;
@@ -106,6 +123,8 @@ public class TbUser {
             ", userAdd2='" + userAdd2 + '\'' +
             ", userBank='" + userBank + '\'' +
             ", userWx='" + userWx + '\'' +
+            ", userFreez=" + userFreez +
+            ", userMoney=" + userMoney +
             '}';
   }
 }

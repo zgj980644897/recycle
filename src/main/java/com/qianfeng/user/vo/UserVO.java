@@ -4,6 +4,24 @@ public class UserVO {
     private Long userId;
     private String username;
     private String password;
+    private Long userFreez;
+    private Long userMoney;
+
+    public Long getUserFreez() {
+        return userFreez;
+    }
+
+    public void setUserFreez(Long userFreez) {
+        this.userFreez = userFreez;
+    }
+
+    public Long getUserMoney() {
+        return userMoney;
+    }
+
+    public void setUserMoney(Long userMoney) {
+        this.userMoney = userMoney;
+    }
 
     public Long getUserId() {
         return userId;

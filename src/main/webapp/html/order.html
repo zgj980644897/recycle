@@ -235,7 +235,7 @@ function selectcity(url){
 			  <div style="float:left; width:115px; margin:0px 6px 0 0">
 			  
 			  	<div class="select_box">
-            	<span class="select_txt" id="text_express" v-model="express.expName">请选择快递公司</span><em class="selet_open"><b></b></em>
+            	<span class="select_txt" id="text_express" >请选择快递公司</span><em class="selet_open"><b></b></em>
             	<input type="hidden" name="express_id" id="express_id" value="0" >
 				<div class="option" id="option_express" style=" width:92px;">
 															<em onclick="option_express_click(this)" value="1">顺丰快递</em>
@@ -515,7 +515,7 @@ function option_express_click(obj){
 			<span id="Loading_server_title"></span><a href="javascript:ttt('Loading_server')"><img src="../images/close1.gif" border="0"></a>
 		</div>
 		<div class="tyd_box_content" style="width:524px;height:529px; overflow:hidden">
-			<iframe id="Loading_server_iframe_id" name="iframe_id" width="524" height="529" border="0" frameborder="0" src="saved_resource.html"></iframe>
+			<!--<iframe id="Loading_server_iframe_id" name="iframe_id" width="524" height="529" border="0" frameborder="0" src="saved_resource.html"></iframe>-->
 		</div>
 	  </div>
 	</div>
@@ -548,7 +548,7 @@ function gocart(check_url,gourl){
 			<span id="Loading_child_members_title"></span><a href="javascript:ttt('Loading_child_members')"><img src="../images/close1.gif" border="0"></a>
 		</div>
 		<div class="tyd_box_content" style="width:502px;overflow:auto; height:570px;;">
-			<iframe id="Loading_child_members_iframe_id" name="iframe_id" width="502" height="570px;" border="0" frameborder="0" src="../saved_resource(2).html"></iframe>
+			<!--<iframe id="Loading_child_members_iframe_id" name="iframe_id" width="502" height="570px;" border="0" frameborder="0" src="../saved_resource(2).html"></iframe>-->
 		</div>
 	  </div>
 	</div>
@@ -578,19 +578,21 @@ function login_pop(){
         methods:{
             //访问后台获取数据
             //mounted处于生命周期定义数据之后，重组html标签之前
-            addOrder:function addExpress() {
-                var a = this.order;
+            addExpress:function addExpress() {
+                var a = this.express;
 
                 console.log(a);
 
-                axios.post("http://localhost:8080/recycle/addOrder",a)
+                axios.post("http://localhost:8080/recycle/addExpress",a)
                 //此处this代表是vue对象
                     .then(function (response) {
                         //调用成功，执行then
                         window.location.href = "order-success.html";
                     })
+                    //mounted处于生命周期定义数据之后，重组html标签之前
+                }
             }
-        }
+
     });
     new Vue({
         el:"#orderShop",
@@ -611,7 +613,7 @@ function login_pop(){
                 sum=sum+this.orderList[i].shopWreckPrice;
                 console.log(sum)
             }
-            this.order.orderPrice=sum;
+
             this.sum=sum;
         })
         }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -54,7 +55,15 @@ public class UserController {
         }
         return "1";
     }
-
+    @ResponseBody
+    @RequestMapping("/selectMoney")
+    public TbUser queryMoney(HttpSession session){
+        TbUser user = (TbUser) session.getAttribute("user");
+        String userPhone = user.getUserPhone();
+        TbUser tbUser = userServiceImpl.queryTbUserByPhoneNum(userPhone);
+        System.out.println(tbUser);
+        return tbUser;
+    }
     @ResponseBody
     @RequestMapping("/register")
     public String register(String userName, String userPassword, String userToken){
@@ -77,5 +86,11 @@ public class UserController {
         }
 
         return "1";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response,HttpSession session){
+       session.setAttribute("user","");
+        return "redirect: ../html/login.html";
     }
 }

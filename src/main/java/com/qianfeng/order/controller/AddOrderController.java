@@ -30,8 +30,10 @@ public class AddOrderController {
         long time = date.getTime();
         Random random = new Random();
         String num=time+""+random.nextInt(10);
+        session.setAttribute("orderNum",num);
         order.setOrderNum(num);
         orderServiceImpl.addOrder(order);
+        orderServiceImpl.deleteShop((int) userId);
         System.out.println("接受到的值："+order);
         return "susseed";
 

@@ -14,4 +14,9 @@ public class OrderServiceImpl implements IOrderService {
     public void addOrder(TbOrder order) {
         orderMapper.addOrder(order);
     }
+
+    @Override
+    public void deleteShop(int userId) {
+        orderMapper.deleteShop(userId);
+    }
 }

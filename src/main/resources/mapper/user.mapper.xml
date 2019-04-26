@@ -13,10 +13,11 @@
         <result property="userAdd2" column="user_add2"/>
         <result property="userBank" column="user_bank"/>
         <result property="userWx" column="user_wx"/>
-
+        <result property="userFreez" column="user_freez"/>
+        <result property="userMoney" column="user_money"/>
     </resultMap>
     <sql id="userSql">
-        user_id,user_name, user_phone,user_password,user_add,user_add1,user_add2,user_bank,user_wx
+        user_id,user_name, user_phone,user_password,user_add,user_add1,user_add2,user_bank,user_wx,user_freez,user_money
     </sql>
     <select id="login" resultMap="loginResultMap">
         select <include refid="userSql"/> from tb_user where user_phone = #{username}
