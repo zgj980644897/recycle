@@ -231,7 +231,7 @@ function selectcity(url){
         mounted() {
             //访问后台获取数据
             //mounted处于生命周期定义数据之后，重组html标签之前
-            axios.get("http://localhost:8080/recycle/user/selectMoney")
+            axios.get("../user/selectMoney")
             //此处this代表是vue对象
                 .then(response =>{ this.moneyList = response.data;})
         }

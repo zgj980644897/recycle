@@ -25,7 +25,7 @@ public class IndexController {
         return list;
     }
     @ResponseBody
-    @RequestMapping("/callphon")
+    @RequestMapping("/callphone")
     public List<TbPhone> queryPhone(String brandId){
         System.out.println("品牌id："+brandId);
         if (brandId==null){

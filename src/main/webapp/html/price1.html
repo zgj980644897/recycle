@@ -180,7 +180,7 @@
             function addCar(){
 //                alert(subTypeIds);
 //                var finalPrice = Math.ceil(finalPrice1);
-                $.get("http://localhost:8080/recycle/isLogin",
+                $.get("../isLogin",
                     function (data){
 
                         if (data=="no") {
@@ -190,7 +190,7 @@
                     });
                 var wreckHP=$(".digits").text();
                 console.log("折后价："+wreckHP)
-                $.post("http://localhost:8080/recycle/shopping",{wreckHP:wreckHP},
+                $.post("../shopping",{wreckHP:wreckHP},
                        function(data,status){
                             if(data=="success"){
                                 alert("购物车加入成功");
@@ -635,7 +635,7 @@
             var cartId = $(obj).next('input').val();
             console.log("值是："+cartId);
             console.log("值2是："+obj);
-            $.post("http://localhost:8080/recycle/delete/deleteCar",
+            $.post("../delete/deleteCar",
                     {
                         cartId:cartId,
                     },function (data) {
@@ -650,7 +650,7 @@
         }
 
         function gosettle() {
-            $.get("http://localhost:8080/recycle/isLogin",
+            $.get("../isLogin",
                 function (data){
 
                 if (data=="no") {
@@ -704,7 +704,7 @@
             mounted() {
                 //访问后台获取数据
                 //mounted处于生命周期定义数据之后，重组html标签之前
-                axios.get("http://localhost:8080/recycle/imputedPrice")
+                axios.get("../imputedPrice")
                 //此处this代表是vue对象
                     .then(response =>{ this.wreckPrice = response.data;}
             )
@@ -726,7 +726,7 @@
             mounted() {
                 //访问后台获取数据
                 //mounted处于生命周期定义数据之后，重组html标签之前
-                axios.get("http://localhost:8080/recycle/car")
+                axios.get("../car")
                 //此处this代表是vue对象
                     .then(response =>{ this.shoppingCar = response.data;
                 var sum=0;

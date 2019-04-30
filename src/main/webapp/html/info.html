@@ -237,7 +237,7 @@
         },
 
         mounted(){
-            axios.post("http://localhost:8080/recycle/type",{phone:phone,page:"1"})
+            axios.post("../type",{phone:phone,page:"1"})
             //此处this代表是vue对象
                 .then(response =>{this.firstList = response.data;})
         }
@@ -249,7 +249,7 @@
         },
 
         mounted(){
-            axios.post("http://localhost:8080/recycle/type",{phone:phone,page:"2"})
+            axios.post("../type",{phone:phone,page:"2"})
             //此处this代表是vue对象
                 .then(response =>{this.secondList = response.data;})
         }
@@ -261,7 +261,7 @@
         },
 
         mounted(){
-            axios.post("http://localhost:8080/recycle/type",{phone:phone,page:"3"})
+            axios.post("../type",{phone:phone,page:"3"})
             //此处this代表是vue对象
                 .then(response =>{this.thirdlyList = response.data;})
         }
@@ -306,10 +306,10 @@
             array.push($(this).find(".property_value i").text());
         });
         console.log(arr);
-        axios.post("http://localhost:8080/recycle/imputed",{imputedList:arr,phonePrice:price,phoneId:phoneId,type:array})
+        axios.post("../imputed",{imputedList:arr,phonePrice:price,phoneId:phoneId,type:array})
             .then(function (response) {
                 //调用成功，执行then response.data
-                window.location.href="http://localhost:8080/recycle/html/price1.html";
+                window.location.href="price1.html";
 
             }).catch(function (exception) {
             //失败就会执行catch方法

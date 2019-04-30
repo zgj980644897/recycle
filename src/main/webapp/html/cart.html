@@ -578,7 +578,7 @@
 
                 console.log(a);
 
-                axios.post("http://localhost:8080/recycle/addOrder",a)
+                axios.post("../addOrder",a)
                 //此处this代表是vue对象
                     .then(function (response) {
                         //调用成功，执行then
@@ -590,7 +590,7 @@
             mounted(){
                 //访问后台获取数据
                 //mounted处于生命周期定义数据之后，重组html标签之前
-                axios.get("http://localhost:8080/recycle/shopOrder")
+                axios.get("../shopOrder")
                 //此处this代表是vue对象
                     .then(response =>{this.orderList = response.data;
 
