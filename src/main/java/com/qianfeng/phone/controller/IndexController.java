@@ -17,15 +17,15 @@ import java.util.List;
 public class IndexController {
     @Autowired
     private IBrandService brandServiceImpl;
-    @ResponseBody
-    @RequestMapping("/brand")
-    public List<BrandVO> queryBrand(){
+        @ResponseBody
+        @RequestMapping("/brand")
+        public List<BrandVO> queryBrand(){
 
         List<BrandVO> list = brandServiceImpl.queryBrand();
         return list;
     }
     @ResponseBody
-    @RequestMapping("/callphone")
+    @RequestMapping("/callphon")
     public List<TbPhone> queryPhone(String brandId){
         System.out.println("品牌id："+brandId);
         if (brandId==null){

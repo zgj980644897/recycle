@@ -30,4 +30,7 @@
         and p2.phone_parent>0 and (p2.phone_name like '%${seek}%' or
         p1.phone_name like '%${seek1}%')
     </select>
+    <select id="queryPagePhone" resultMap="phoneResultMap">
+        select  phone_id,phone_name,phone_pic,phone_price from tb_phone where phone_parent>0 limit #{page},#{index}
+    </select>
 </mapper>

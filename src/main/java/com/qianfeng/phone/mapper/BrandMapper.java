@@ -12,4 +12,5 @@ public interface BrandMapper {
     List<TbPhone> queryPhone();
     List<TbPhone> queryBrandPhone(@Param("brandId") int brandId);
     List<TbPhone> queryPhoneByPhoneName(@Param("seek") String seek,@Param("seek1") String seek1);
+    List<TbPhone> queryPagePhone(@Param("page") int page,@Param("index") int index);
 }
